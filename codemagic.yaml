@@ -1,0 +1,22 @@
+---
+# Configuration de CodeMagic pour compiler un fichier C en .dylib (compatible iOS/macOS)
+# Ce fichier permet de générer un fichier .dylib à partir de ton code C
+
+# Configuration générale
+app: "ios"  # ou "macos" si tu veux compiler pour macOS
+
+# Paramètres de build
+build:
+  # Dossier de build
+  script:
+    - echo "Compilation en cours..."
+    - clang -dynamiclib -o aimbot_menu.dylib src/aimbot.c
+    - echo "Compilation terminée !"
+  # Fichier de sortie
+  artifacts:
+    - aimbot_menu.dylib
+
+# Configuration de l'environnement (optionnel)
+environment:
+  # Utilisez un environnement macOS pour compiler en .dylib
+  xcode: "14.3"  # ou la version macOS que tu veux utiliser
