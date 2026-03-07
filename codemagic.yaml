@@ -1,0 +1,16 @@
+workflows:
+  build_dylib:
+    name: Build dylib
+
+    environment:
+      xcode: "14.3"
+
+    scripts:
+      - name: Compile dylib
+        script: |
+          echo "Compilation en cours..."
+          clang -dynamiclib aimbot.c -o aimbot.dylib
+          echo "Compilation terminée"
+
+    artifacts:
+      - aimbot.dylib
