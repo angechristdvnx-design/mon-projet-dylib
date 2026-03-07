@@ -1,0 +1,23 @@
+workflows:
+  name:
+    type: "build"
+    description: "Build aimbot.dylib"
+  on:
+    push:
+      branches:
+        - main
+  provider:
+    name: "github"
+    repo: "ton-repo"
+    token: $GITHUB_TOKEN
+
+build:
+  script:
+    - echo "Compilation en cours..."
+    - clang -dynamiclib -o aimbot_menu.dylib src/aimbot.c
+    - echo "Compilation terminée !"
+  artifacts:
+    - aimbot_menu.dylib
+
+environment:
+  xcode: "14.3"
