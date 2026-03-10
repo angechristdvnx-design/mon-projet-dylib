@@ -6,16 +6,18 @@ workflows:
 
     scripts:
       - name: List files
-        script: ls -la
+        script: ls -la $CM_BUILD_DIR
 
       - name: Compile dylib
         script: |
+          cd $CM_BUILD_DIR
           clang -dynamiclib -fPIC -fobjc-arc -O2 \
+            -I. \
             -framework Metal \
             -framework Cocoa \
             -framework QuartzCore \
-            -o $CM_BUILD_DIR/libbabel_menu.dylib \
-            $CM_BUILD_DIR/babel_overlay.m $CM_BUILD_DIR/babel_menu.c -lm
+            -o libbabel_menu.dylib \
+            babel_overlay.m babel_menu.c -lm
 
     artifacts:
       - $CM_BUILD_DIR/libbabel_menu.dylib
