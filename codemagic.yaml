@@ -8,6 +8,12 @@ workflows:
       - name: List files
         script: ls -la $CM_BUILD_DIR
 
+      - name: Rename header
+        script: |
+          cd $CM_BUILD_DIR
+          mv "babel_menu (2).h" babel_menu.h 2>/dev/null || true
+          ls -la
+
       - name: Compile dylib
         script: |
           cd $CM_BUILD_DIR
