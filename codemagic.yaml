@@ -5,14 +5,17 @@ workflows:
     instance_type: mac_mini_m1
 
     scripts:
+      - name: List files
+        script: ls -la
+
       - name: Compile dylib
         script: |
           clang -dynamiclib -fPIC -fobjc-arc -O2 \
             -framework Metal \
             -framework Cocoa \
             -framework QuartzCore \
-            -o libbabel_menu.dylib \
-            babel_overlay.m babel_menu.c -lm
+            -o $CM_BUILD_DIR/libbabel_menu.dylib \
+            $CM_BUILD_DIR/babel_overlay.m $CM_BUILD_DIR/babel_menu.c -lm
 
     artifacts:
-      - libbabel_menu.dylib
+      - $CM_BUILD_DIR/libbabel_menu.dylib
