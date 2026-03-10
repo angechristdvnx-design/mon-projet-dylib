@@ -1,0 +1,29 @@
+name: Build libbabel_menu.dylib
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile dylib
+        run: |
+          clang -dynamiclib -fPIC -fobjc-arc -O2 \
+            -framework Metal \
+            -framework Cocoa \
+            -framework QuartzCore \
+            -o libbabel_menu.dylib \
+            babel_overlay.m babel_menu.c -lm
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libbabel_menu
+          path: libbabel_menu.dylib
